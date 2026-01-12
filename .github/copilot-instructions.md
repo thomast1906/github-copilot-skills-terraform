@@ -67,8 +67,6 @@ The primary MCP server for Terraform operations. Use these tools:
 - `get_module_details` - Get detailed documentation for a specific module
 - `search_providers` - Search for provider resources and data sources
 - `get_provider_details` - Get resource/data source documentation
-- `list_workspaces` - List HCP Terraform/TFE workspaces (requires token)
-- `get_workspace` - Get workspace details and variables
 
 Example queries:
 ```
@@ -80,7 +78,6 @@ Use terraform MCP: get_provider_details for azurerm_storage_account
 
 - `azureterraformbestpractices` - **MUST call before generating any Azure Terraform code** - Returns current Azure Terraform best practices, security recommendations, and provider-specific guidance
 - `azure_resources` - Query Azure Resource Graph for existing resources
-- `bicepschema` - Get Azure Verified Modules information
 
 ### When to Use MCP Tools
 

@@ -119,8 +119,6 @@ When copying to your infrastructure repository, you can use this configuration a
 | `get_module_details` | Get module documentation and examples |
 | `search_providers` | Search for provider resources |
 | `get_provider_details` | Get resource documentation |
-| `list_workspaces` | List HCP Terraform workspaces |
-| `get_workspace` | Get workspace details |
 
 **Azure MCP Server:**
 
