@@ -60,14 +60,6 @@ Agents are defined in [.github/agents/](.github/agents/) as `.agent.md` files:
 | `terraform-security` | Security scanning and compliance checks | ✅ Available |
 | `terraform-module-expert` | Azure Verified Modules discovery and implementation | ✅ Available |
 
-### Additional Agents (Planned)
-
-These agents are referenced in documentation but not yet implemented:
-- `terraform-planner` - Plan analysis with risk assessment
-- `terraform-deployer` - Safe deployments with approval gates
-- `terraform-drift` - Infrastructure drift detection
-- `terraform-cost` - Cost estimation and optimization
-
 ## 🛠 Skills
 
 Skills are defined in [.github/skills/](.github/skills/) with `SKILL.md` files:
@@ -77,15 +69,6 @@ Skills are defined in [.github/skills/](.github/skills/) with `SKILL.md` files:
 | `terraform-security-scan` | Runs security analysis with tfsec/checkov | ✅ Available |
 | `azure-verified-modules` | Searches and implements Azure Verified Modules | ✅ Available |
 | `github-actions-terraform` | CI/CD workflow patterns for Terraform | ✅ Available |
-
-### Additional Skills (Planned)
-
-These skills are referenced in documentation but not yet implemented:
-- `terraform-plan` - Plan generation with risk assessment
-- `terraform-apply` - Safe infrastructure deployment
-- `terraform-destroy` - Resource destruction with safeguards
-- `terraform-drift-detection` - Configuration drift detection
-- `terraform-cost-estimation` - Infrastructure cost estimation
 
 ## 🔧 MCP Server Configuration
 
@@ -125,7 +108,6 @@ When copying to your infrastructure repository, you can use this configuration a
 | Tool | Description |
 |------|-------------|
 | `azureterraformbestpractices` | **MUST call before generating Terraform code** - Returns current Azure Terraform best practices, security recommendations, and Azure provider-specific guidance |
-| `bicepschema` | Get Azure resource schemas for Bicep |
 | `azure_resources` | Query Azure Resource Graph for existing resources |
 | `get_bestpractices` | Get deployment and implementation best practices |
 
@@ -232,6 +214,15 @@ az storage container create \
 - [Terraform Module Expert Agent](.github/agents/terraform-module-expert.agent.md)
 - [Terraform Security Agent](.github/agents/terraform-security.agent.md)
 - [Available Skills](.github/skills/) - Browse the skills directory
+
+## 📖 Additional Reading & Inspiration
+
+Learn more about GitHub Copilot agents and skills:
+
+- [GitHub Awesome Copilot](https://github.com/github/awesome-copilot) - Community-contributed instructions, agents, and skills
+- [VS Code: Copilot Customization with Agents & Skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) - Official VS Code documentation
+- [GitHub Copilot Now Supports Agent Skills](https://github.blog/changelog/2025-12-18-github-copilot-now-supports-agent-skills/) - Feature announcement
+- [About Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) - GitHub Copilot concepts and documentation
 
 ## 🔒 Security
 
