@@ -1,7 +1,7 @@
 ---
 name: terraform-module-expert
 description: An expert agent for discovering, evaluating, and implementing Azure Verified Modules (AVM) and community Terraform modules. Helps standardize infrastructure patterns and reduce code duplication.
-tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'agent', 'azure-mcp/azureterraformbestpractices', 'azure-mcp/documentation', 'azure-mcp/get_bestpractices', 'azure-mcp/search', 'todo']
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'azure-mcp/azureterraformbestpractices', 'azure-mcp/documentation', 'azure-mcp/get_bestpractices', 'azure-mcp/search', 'terraform/*', 'agent', 'todo']
 ---
 
 # Terraform Module Expert Agent

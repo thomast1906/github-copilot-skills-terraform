@@ -1,7 +1,7 @@
 ---
 name: terraform-security
 description: A security-focused agent that analyzes Terraform configurations for security vulnerabilities, compliance issues, and Azure security best practices. Provides remediation guidance with secure code examples.
-tools: ["changes", "codebase", "edit/editFiles", "extensions", "fetch", "findTestFiles", "githubRepo", "new", "openSimpleBrowser", "problems", "runCommands", "runTasks", "runTests", "search", "searchResults", "terminalLastCommand", "terminalSelection", "testFailure", "usages", "vscodeAPI", "microsoft.docs.mcp", "azure_get_deployment_best_practices", "azure_get_schema_for_Bicep","azureterraformbestpractices", "terraform"]
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'azure-mcp/azureterraformbestpractices', 'azure-mcp/documentation', 'azure-mcp/get_bestpractices', 'azure-mcp/search', 'terraform/*', 'agent', 'todo']
 ---
 
 # Terraform Security Agent
