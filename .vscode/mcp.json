@@ -18,13 +18,13 @@
     {
       "type": "promptString",
       "id": "tfe_token",
-      "description": "HCP Terraform / Terraform Enterprise API Token (leave empty for public registry only)",
+      "description": "Terraform API Token",
       "password": true
     },
     {
       "type": "promptString",
       "id": "tfe_address",
-      "description": "HCP Terraform / Terraform Enterprise Address (default: https://app.terraform.io)",
+      "description": "Terraform Address",
       "password": false
     }
   ]
