@@ -72,7 +72,7 @@ Skills are defined in [.github/skills/](.github/skills/) with `SKILL.md` files:
 
 ## 🔧 MCP Server Configuration
 
-This repository includes an example MCP configuration in [.vscode/mcp.json](.vscode/mcp.json) for the **HashiCorp Terraform MCP Server**.
+This repository includes an example MCP configuration in [.vscode/mcp.json](.vscode/mcp.json) for the **HashiCorp Terraform MCP Server** and **Azure MCP Server**.
 
 When copying to your infrastructure repository, you can use this configuration as-is or customize it:
 
@@ -91,6 +91,36 @@ When copying to your infrastructure repository, you can use this configuration a
   }
 }
 ```
+
+### Setting Up Azure MCP Server
+
+The Azure MCP Server provides Azure-specific tools including Terraform best practices and resource queries.
+
+**Installation:**
+
+1. **Install the Azure MCP Server Extension:**
+   ```bash
+   code --install-extension ms-azuretools.vscode-azure-mcp-server
+   ```
+   Or install via VS Code Extensions Marketplace: [Azure MCP Server](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azure-mcp-server)
+
+2. **Restart VS Code** to activate the extension
+
+3. **Authenticate with Azure:**
+   ```bash
+   az login
+   ```
+   The Azure MCP Server automatically uses your Azure CLI credentials.
+
+**What You Get:**
+
+The Azure MCP Server extension automatically configures itself and provides:
+- `azureterraformbestpractices` - **Must call before generating any Azure Terraform code**
+- `azure_resources` - Query Azure Resource Graph
+- `get_bestpractices` - Deployment and security best practices
+- Azure-specific context for Copilot agents
+
+> **Note:** Unlike the Terraform MCP Server which runs via Docker, the Azure MCP Server is a VS Code extension that handles its own configuration automatically. No manual mcp.json entry needed!
 
 ### Available MCP Tools
 
