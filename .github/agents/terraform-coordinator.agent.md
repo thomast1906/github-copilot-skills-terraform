@@ -1,4 +1,3 @@
-````chatagent
 ---
 name: Terraform Coordinator [WIP]
 description: Central coordination agent that routes handoffs between module and security agents, and tracks handoff state.
