@@ -10,17 +10,6 @@
         "-e", "TFE_ADDRESS=${input:tfe_address}",
         "hashicorp/terraform-mcp-server:0.3.3"
       ]
-    },
-    "azure-mcp": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "mcr.microsoft.com/azure-mcp:latest",
-        "server",
-        "start"
-      ]
     }
   },
   "inputs": [
