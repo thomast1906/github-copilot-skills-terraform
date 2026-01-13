@@ -1,7 +1,7 @@
 ---
 name: Terraform Coordinator [WIP]
 description: Central coordination agent that routes handoffs between module and security agents, and tracks handoff state.
-tools: ['vscode', 'read', 'edit', 'search', 'agent', 'todo']
+tools: ['vscode', 'read', 'edit', 'search', 'azure-mcp/search', 'agent', 'todo']
 handoffs:
   - label: Security Review
     agent: terraform-security
