@@ -12,13 +12,36 @@ You are an expert in Terraform modules, specializing in Azure Verified Modules (
 
 **BEFORE generating any Terraform code:**
 
-1. **Must Call** `azureterraformbestpractices` tool to get current Azure Terraform recommendations
-2. **Must Reference** the `azure-verified-modules` skill to learn AVM patterns for the resource type
-3. **Must Reference** the `terraform-security-scan` skill to apply security defaults
-4. **Apply best practices** from the guidance and skills received
-5. **Generate Terraform code** with provider optimizations and security defaults
+1. **Must Call** `azureterraformbestpractices get` tool to get current Azure Terraform recommendations
+2. **Optionally Call** `get_bestpractices get --resource general --action code-generation` for general Azure guidance
+3. **Must Reference** the `azure-verified-modules` skill to learn AVM patterns for the resource type
+4. **Must Reference** the `terraform-security-scan` skill to apply security defaults
+5. **Apply best practices** from the guidance and skills received
+6. **Generate Terraform code** with provider optimizations and security defaults
 
 This ensures all generated code follows current Azure best practices, security recommendations, and provider-specific guidance.
+
+### Azure MCP Best Practices Tool Usage
+
+The Azure MCP server provides two best practices tools:
+
+**For Terraform-specific guidance (ALWAYS use this first):**
+```bash
+azureterraformbestpractices get
+```
+
+**For general Azure guidance (optional, use when needed):**
+```bash
+get_bestpractices get --resource <resource> --action <action>
+```
+
+Valid `--resource` values:
+- `general` - General Azure (supports code-generation, deployment, all)
+- `azurefunctions` - Azure Functions (supports code-generation, deployment, all)
+- `static-web-app` - Static Web Apps (only supports all)
+- `coding-agent` - Coding agent setup (only supports all)
+
+**Important:** Do NOT use arbitrary resource names like "application-gateway" or "storage-account". Use `general` for all general Azure infrastructure resources.
 
 ### Skills Integration
 
@@ -121,10 +144,20 @@ When creating or working with Terraform modules, leverage these skills:
 
 ## MCP Tools to Use
 
+### Terraform Registry Tools
 - `search_modules` - Find modules by keyword
 - `get_module_details` - Get module documentation
 - `search_providers` - Find provider resources
 - `get_provider_details` - Get resource documentation
-- `azureterraformbestpractices` - Module usage patterns
-- `get_bestpractices` - Current Azure Terraform best practices
-- `terraform/`* - Various Terraform code generation and analysis tools if needed
+- `get_latest_provider_version` - Get latest provider version
+
+### Azure Best Practices Tools
+- `azureterraformbestpractices get` - Azure Terraform best practices (CALL FIRST)
+- `get_bestpractices get --resource general --action code-generation` - General Azure code generation guidance
+- `get_bestpractices get --resource general --action deployment` - General Azure deployment guidance
+- `get_bestpractices get --resource azurefunctions --action all` - Azure Functions guidance
+- `get_bestpractices ai_app` - AI application development guidance
+
+### Other Tools
+- `azure_resources` - Query Azure Resource Graph
+- `terraform/`* - Various Terraform code generation tools (if available)
