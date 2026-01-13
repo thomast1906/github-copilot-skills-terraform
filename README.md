@@ -21,10 +21,19 @@ This repository provides:
 │   ├── agents/                  # GitHub Copilot agent definitions
 │   │   ├── terraform-module-expert.agent.md
 │   │   └── terraform-security.agent.md
-│   ├── skills/                  # Reusable agent skills
+│   ├── skills/                  # Reusable agent skills (agentskills.io spec)
 │   │   ├── azure-verified-modules/
+│   │   │   ├── SKILL.md
+│   │   │   └── references/
+│   │   │       └── REFERENCE.md
 │   │   ├── github-actions-terraform/
+│   │   │   ├── SKILL.md
+│   │   │   └── references/
+│   │   │       └── REFERENCE.md
 │   │   └── terraform-security-scan/
+│   │       ├── SKILL.md
+│   │       └── references/
+│   │           └── REFERENCE.md
 │   └── copilot-instructions.md  # Global Copilot instructions
 ├── .vscode/
 │   └── mcp.json                 # MCP server configuration
@@ -62,13 +71,26 @@ Agents are defined in [.github/agents/](.github/agents/) as `.agent.md` files:
 
 ## 🛠 Skills
 
-Skills are defined in [.github/skills/](.github/skills/) with `SKILL.md` files:
+Skills follow the [Agent Skills specification](https://agentskills.io/specification) and are defined in [.github/skills/](.github/skills/):
 
 | Skill | Description | Status |
 |-------|-------------|--------|
 | `terraform-security-scan` | Runs security analysis with tfsec/checkov | ✅ Available |
 | `azure-verified-modules` | Searches and implements Azure Verified Modules | ✅ Available |
 | `github-actions-terraform` | CI/CD workflow patterns for Terraform | ✅ Available |
+
+### Skill Structure
+
+Each skill follows the spec-compliant structure:
+
+```
+.github/skills/{skill-name}/
+├── SKILL.md              # Required - Instructions and metadata
+└── references/           # Optional - Detailed documentation
+    └── REFERENCE.md      # Reference material loaded on-demand
+```
+
+Skills use progressive disclosure - `SKILL.md` metadata loads first, then instructions, then references only when needed.
 
 ## 🔧 MCP Server Configuration
 
@@ -249,8 +271,10 @@ az storage container create \
 
 Learn more about GitHub Copilot agents and skills:
 
+- [Agent Skills Specification](https://agentskills.io/specification) - Official Agent Skills format specification
 - [GitHub Awesome Copilot](https://github.com/github/awesome-copilot) - Community-contributed instructions, agents, and skills
 - [VS Code: Copilot Customization with Agents & Skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) - Official VS Code documentation
+- [VS Code: Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents) - Creating custom agents
 - [GitHub Copilot Now Supports Agent Skills](https://github.blog/changelog/2025-12-18-github-copilot-now-supports-agent-skills/) - Feature announcement
 - [About Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) - GitHub Copilot concepts and documentation
 

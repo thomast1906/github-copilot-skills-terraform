@@ -1,6 +1,10 @@
 ---
 name: azure-verified-modules
-description: Research and learn from Azure Verified Modules (AVM) patterns to build better custom Terraform modules. Use this skill to reference AVM structure, security defaults, and best practices - NOT to consume AVM modules directly.
+description: Research and learn from Azure Verified Modules (AVM) patterns to build better custom Terraform modules. Use this skill when creating Terraform modules, researching Azure security defaults, or understanding proper resource configuration patterns. NOT for consuming AVM modules directly.
+metadata:
+  author: github-copilot-skills-terraform
+  version: "1.0.0"
+  category: terraform-azure
 ---
 
 # Azure Verified Modules (Reference) Skill
@@ -24,79 +28,6 @@ This skill helps you learn from Azure Verified Modules (AVM) - Microsoft's offic
 - Dynamic blocks for optional resources
 - Module organization and file structure
 
-## Learning from AVM Structure
-
-### 1. Security Defaults
-
-Review AVM to understand Microsoft's recommended security settings:
-
-```hcl
-# Example: What we learn from AVM storage account patterns
-resource "azurerm_storage_account" "this" {
-  name                = var.name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  
-  # Security defaults learned from AVM
-  min_tls_version                 = "TLS1_2"
-  https_traffic_only_enabled      = true
-  public_network_access_enabled   = false
-  shared_access_key_enabled       = false
-  allow_nested_items_to_be_public = false
-  
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
-}
-```
-
-### 2. Variable Validation Patterns
-
-Learn validation rules from AVM:
-
-```hcl
-variable "name" {
-  type        = string
-  description = "Storage account name"
-  
-  # Validation pattern learned from AVM
-  validation {
-    condition     = can(regex("^[a-z0-9]{3,24}$", var.name))
-    error_message = "Name must be 3-24 characters, lowercase letters and numbers only."
-  }
-}
-```
-
-### 3. Dynamic Block Patterns
-
-Understand how to handle optional nested configurations:
-
-```hcl
-# Pattern learned from AVM for optional network rules
-resource "azurerm_storage_account" "this" {
-  # ... other config ...
-  
-  dynamic "network_rules" {
-    for_each = var.network_rules != null ? [var.network_rules] : []
-    content {
-      default_action             = network_rules.value.default_action
-      bypass                     = network_rules.value.bypass
-      ip_rules                   = network_rules.value.ip_rules
-      virtual_network_subnet_ids = network_rules.value.virtual_network_subnet_ids
-    }
-  }
-}
-```
-
-## What are Azure Verified Modules?
-
-Azure Verified Modules (AVM) are:
-
-- **Microsoft-maintained** - Official support and regular updates
-- **Security-reviewed** - Follows Azure security best practices
-- **Well-documented** - Comprehensive examples and documentation
-- **Tested** - Automated testing for reliability
-- **Standardized** - Consistent interface across modules
-
 ## What are Azure Verified Modules?
 
 Azure Verified Modules (AVM) are Microsoft's official Terraform modules that serve as **reference implementations** showing:
@@ -116,100 +47,17 @@ Browse implementations: https://azure.github.io/Azure-Verified-Modules/
 ### Terraform Registry
 
 View source code: https://registry.terraform.io/namespaces/Azure
+AVM modules are prefixed with `avm-`, e.g., `avm-res-storage-storageaccount`. (https://registry.terraform.io/search/modules?q=avm)
 
-### Common AVM Modules to Study
+### Using Terraform MCP Tools
 
-| Module | Learn From It |
-|--------|---------------|
-| `avm-res-storage-storageaccount` | Storage security defaults, network rules, container management |
-| `avm-res-keyvault-vault` | RBAC patterns, purge protection, network ACLs |
-| `avm-res-compute-virtualmachine` | Managed identity setup, diagnostic settings |
-| `avm-res-network-virtualnetwork` | Subnet delegation, NSG associations |
-| `avm-res-web-site` | App Service security, identity configuration |
-
-## Using Terraform MCP Tools
-
-### Search AVM for Patterns
-
-```bash
+\`\`\`bash
 # Use terraform MCP to find relevant AVM modules
 search_modules("azure storage account verified")
-```
 
-### Get Module Details for Learning
-
-```bash
 # View AVM implementation details
 get_module_details("Azure/avm-res-storage-storageaccount/azurerm")
-```
-
-This shows you:
-- Input variables and their validation
-- Security defaults used
-- Output structure
-- Resource relationships
-
-## Example: Learning from AVM Storage Account
-
-When creating a custom storage account module, reference AVM to learn:
-
-### Security Configuration
-```hcl
-resource "azurerm_storage_account" "this" {
-  name                = var.name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  
-  # Learned from AVM: Security-first defaults
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
-  min_tls_version          = "TLS1_2"
-  https_traffic_only_enabled = true
-  public_network_access_enabled = false
-  shared_access_key_enabled = false
-  allow_nested_items_to_be_public = false
-  
-  tags = merge(var.tags, { managed-by = "terraform" })
-}
-```
-
-### Child Resource Patterns
-```hcl
-# Learned from AVM: How to handle optional child resources
-resource "azurerm_storage_container" "this" {
-  for_each = var.containers
-  
-  name                  = each.value.name
-  storage_account_name  = azurerm_storage_account.this.name
-  container_access_type = each.value.public_access
-}
-
-resource "azurerm_storage_share" "this" {
-  for_each = var.shares
-  
-  name                 = each.value.name
-  storage_account_name = azurerm_storage_account.this.name
-  quota                = each.value.quota
-}
-```
-
-### Network Rules Pattern
-```hcl
-# Learned from AVM: Dynamic blocks for optional configurations
-resource "azurerm_storage_account" "this" {
-  # ... other config ...
-  
-  dynamic "network_rules" {
-    for_each = var.network_rules != null ? [var.network_rules] : []
-    content {
-      default_action             = network_rules.value.default_action
-      bypass                     = network_rules.value.bypass
-      ip_rules                   = network_rules.value.ip_rules
-      virtual_network_subnet_ids = network_rules.value.virtual_network_subnet_ids
-    }
-  }
-}
-```
+\`\`\`
 
 ## Key Learnings from AVM
 
@@ -226,7 +74,7 @@ resource "azurerm_storage_account" "this" {
 - Document all variables with descriptions
 
 ### 3. Resource Organization
-- Use `for_each` for child resources
+- Use \`for_each\` for child resources
 - Implement dynamic blocks for optional configs
 - Tag all resources consistently
 - Name resources predictably
@@ -240,17 +88,17 @@ resource "azurerm_storage_account" "this" {
 ## What NOT to Do
 
 ❌ **DON'T copy AVM by calling it as a module:**
-```hcl
+\`\`\`hcl
 # This defeats the purpose - just creates a wrapper
 module "storage_wrapper" {
   source  = "Azure/avm-res-storage-storageaccount/azurerm"
   version = "0.2.0"
   name    = var.name
 }
-```
+\`\`\`
 
 ✅ **DO learn patterns and implement resources directly:**
-```hcl
+\`\`\`hcl
 # This is what we want - actual resource using AVM patterns
 resource "azurerm_storage_account" "this" {
   name                = var.name
@@ -260,7 +108,9 @@ resource "azurerm_storage_account" "this" {
   # Using security patterns learned from AVM
   min_tls_version           = "TLS1_2"
   https_traffic_only_enabled = true
-  
-  # ... rest of configuration
 }
-```
+\`\`\`
+
+## Additional Resources
+
+For detailed code examples, security patterns, and module templates, see the [reference guide](references/REFERENCE.md).

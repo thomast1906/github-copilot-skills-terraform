@@ -18,6 +18,7 @@ This repository does NOT contain actual Terraform infrastructure code. It contai
 ```
 .github/
 ├── agents/                           # GitHub Copilot agent definitions
+│   ├── terraform-coordinator.agent.md
 │   ├── terraform-module-expert.agent.md
 │   └── terraform-security.agent.md
 ├── skills/                           # Reusable skills
@@ -200,3 +201,48 @@ This repository uses the HashiCorp Terraform MCP server for enhanced tooling:
 - **get_provider_details** - Get resource documentation
 
 Configure in `.vscode/mcp.json` for VS Code integration.
+
+## Agent Architecture
+
+This repository includes three specialized agents:
+
+### Terraform Coordinator
+**Purpose:** Central routing agent for handoffs between specialist agents.
+
+**Responsibilities:**
+- Routes security review requests to `terraform-security`
+- Routes implementation requests to `terraform-module-expert`
+- Tracks handoff state and maintains a single canonical path for review/implementation cycles
+- Avoids performing specialist tasks; delegates to appropriate agents
+
+**When to use:** Use as the central handoff point when one agent needs to invoke another (e.g., module expert requesting security review, security agent requesting implementation).
+
+### Terraform Module Expert
+**Purpose:** Discovers, evaluates, and implements Azure Terraform modules.
+
+**Responsibilities:**
+- Discover modules from Azure Verified Modules and Terraform Registry
+- Evaluate modules for quality, security, and fit
+- Implement modules with best practices
+- Create custom modules following Azure standards and AVM patterns
+- Maintain module versions and handle upgrades
+
+**Handoffs:** Routes security review requests to `terraform-coordinator`.
+
+### Terraform Security
+**Purpose:** Analyzes Terraform configurations for security vulnerabilities and compliance.
+
+**Responsibilities:**
+- Scan configurations for security vulnerabilities and misconfigurations
+- Enforce compliance with security policies and frameworks
+- Detect issues that could lead to security incidents
+- Provide remediation guidance with secure code examples
+
+**Handoffs:** Routes implementation requests to `terraform-coordinator`.
+
+**Compliance frameworks checked:**
+- Azure Security Benchmark
+- CIS Azure Foundations Benchmark v2.0
+- SOC 2 Type II requirements
+- PCI DSS (if applicable)
+- HIPAA (if applicable)
