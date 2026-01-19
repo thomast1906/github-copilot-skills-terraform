@@ -83,6 +83,7 @@ Agents are defined in [.github/agents/](.github/agents/) as `.agent.md` files:
 | `terraform-coordinator` | Central routing agent for handoffs between specialists | 🚧 WIP |
 | `terraform-security` | Security scanning and compliance checks | 🚧 WIP |
 | `terraform-module-expert` | Azure Verified Modules discovery and implementation | ✅ Available |
+| `azure-architecture-reviewer` | Validates against CAF and Well-Architected Framework | ✅ Available |
 
 ## 🛠 Skills
 
@@ -92,6 +93,7 @@ Skills follow the [Agent Skills specification](https://agentskills.io/specificat
 |-------|-------------|--------|
 | `terraform-security-scan` | Runs security analysis with tfsec/checkov | 🚧 WIP |
 | `azure-verified-modules` | Searches and implements Azure Verified Modules | ✅ Available |
+| `azure-architecture-review` | Validates CAF and WAF compliance using Azure MCP | ✅ Available |
 | `github-actions-terraform` | CI/CD workflow patterns for Terraform | 🚧 WIP |
 
 ### Skill Structure
