@@ -46,6 +46,7 @@ Valid `--resource` values:
 ### Skills Integration
 
 **When creating modules, explicitly reference:**
+- **terraform-best-practices** - Terraform language, functions, for_each vs count, dynamic blocks
 - **azure-verified-modules** - Learn security defaults, variable validation, and dynamic block patterns from AVM
 - **terraform-security-scan** - Apply encryption, network security, RBAC, and logging requirements
 - **github-actions-terraform** - When asked about CI/CD or testing
@@ -62,6 +63,37 @@ Valid `--resource` values:
 
 When creating new Terraform modules, you MUST follow these rules:
 
+### Working with Existing vs Greenfield Projects
+
+**For Greenfield projects (new infrastructure):**
+- Follow the recommended folder structure below (based on Azure Verified Modules and HashiCorp best practices)
+- **Ask the user** if they want to follow the recommended structure or have preferences
+- Explain why the structure is recommended (maintainability, AVM patterns, security defaults)
+- Apply best practices from the start
+
+**For Existing/Legacy projects:**
+1. **First, review the existing structure** - Use file search and grep to understand current organization
+2. **Assess and explain** - Tell the user what you found and how it compares to recommended practices
+3. **Ask before recommending** - "I see you're using [current structure]. Would you like me to suggest improvements based on AVM patterns, or work with your existing structure?"
+4. **When user explicitly requests refactoring:**
+   - User says "rewrite", "refactor", "restructure", or "use recommended structure" = **approval to implement**
+   - **Actually restructure** folders and files to match recommended patterns
+   - **Create new files** following proper module structure
+   - **Implement the changes** - don't just suggest them
+   - **Migrate existing code** to the new organization
+5. **For incremental changes without explicit refactoring request:**
+   - Make changes incrementally, prioritize working code
+   - Adapt to their patterns - enhance rather than replace
+   - Document deviations from recommendations
+
+**Communication is key:**
+- Always explain WHERE recommendations come from (AVM, HashiCorp docs, community best practices)
+- Ask the user's preference when there are multiple valid approaches
+- Offer options: "We could follow AVM structure, or adapt your existing pattern"
+- Be transparent about tradeoffs
+
+**When in doubt:** Ask the user if this is greenfield or existing infrastructure before suggesting major structural changes.
+
 ### Module Structure Requirements
 
 1. **Create actual Terraform resources** - NOT wrappers around other modules
@@ -69,6 +101,8 @@ When creating new Terraform modules, you MUST follow these rules:
 3. **Implement resources directly** using azurerm provider
 
 ### Required Files
+
+**Recommended structure for new modules (based on Azure Verified Modules patterns):**
 
 ```
 infra/modules/{module-name}/
@@ -78,6 +112,12 @@ infra/modules/{module-name}/
 ├── versions.tf       # Provider requirements
 └── README.md         # Usage documentation
 ```
+
+**Always explain to the user:**
+- This structure is recommended by Azure Verified Modules (AVM)
+- It follows HashiCorp's module structure conventions
+- Ask if they prefer a different organization
+- For existing projects, explain current structure vs recommended, then ask their preference
 
 For detailed file templates, reference the **azure-verified-modules** skill.
 
@@ -138,6 +178,7 @@ resource "azurerm_storage_account" "this" {
 
 When creating or working with Terraform modules, leverage these skills:
 
+- **terraform-best-practices** - General Terraform language, functions, expressions, and coding conventions
 - **azure-verified-modules** - Search AVM for patterns and best practices
 - **terraform-security-scan** - Security review of module code
 - **github-actions-terraform** - CI/CD workflows for Terraform modules
@@ -161,3 +202,5 @@ When creating or working with Terraform modules, leverage these skills:
 ### Other Tools
 - `azure_resources` - Query Azure Resource Graph
 - `terraform/`* - Various Terraform code generation tools (if available)
+
+**For Terraform language questions** (functions, expressions, syntax), reference the **terraform-best-practices** skill which includes comprehensive guidance on Terraform language features and links to HashiCorp documentation.
