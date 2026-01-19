@@ -76,15 +76,58 @@ Use terraform MCP: get_provider_details for azurerm_storage_account
 
 ### Azure MCP Tools
 
-- `azureterraformbestpractices` - **MUST call before generating any Azure Terraform code** - Returns current Azure Terraform best practices, security recommendations, and provider-specific guidance
-- `azure_resources` - Query Azure Resource Graph for existing resources
+#### azureterraformbestpractices
+**MUST call before generating any Azure Terraform code**
+
+Returns current Azure Terraform best practices, security recommendations, and provider-specific guidance.
+
+```bash
+azmcp azureterraformbestpractices get
+```
+
+#### get_bestpractices
+Get Azure best practices for specific resources and actions.
+
+**Valid parameters:**
+- `--resource` options:
+  - `general` - General Azure best practices
+  - `azurefunctions` - Azure Functions specific
+  - `static-web-app` - Azure Static Web Apps specific
+  - `coding-agent` - Coding agent configuration
+
+- `--action` options:
+  - `all` - Both code generation and deployment (required for static-web-app and coding-agent)
+  - `code-generation` - Code generation best practices (for general and azurefunctions)
+  - `deployment` - Deployment best practices (for general and azurefunctions)
+
+**Examples:**
+```bash
+azmcp get_bestpractices get --resource general --action code-generation
+azmcp get_bestpractices get --resource general --action deployment
+azmcp get_bestpractices get --resource azurefunctions --action all
+azmcp get_bestpractices get --resource static-web-app --action all
+```
+
+#### get_bestpractices AI App
+Get best practices for building AI applications in Azure:
+
+```bash
+azmcp get_bestpractices ai_app
+```
+
+#### azure_resources
+Query Azure Resource Graph for existing resources.
 
 ### When to Use MCP Tools
 
-1. **Before writing Terraform code** - **MUST call** `azureterraformbestpractices` to get current recommendations
-2. **When searching for modules** - Use `search_modules` to find AVM or community modules
-3. **When adding new resources** - Use `get_provider_details` for correct syntax
-4. **When reviewing infrastructure** - Use `azure_resources` to query existing state
+1. **Before writing Terraform code** - **MUST call** `azureterraformbestpractices get` to get current Terraform-specific recommendations
+2. **For general Azure infrastructure** - Use `get_bestpractices get --resource general --action code-generation` (covers all general Azure resources including Application Gateway, Storage, Networking, etc.)
+3. **For Azure Functions** - Use `get_bestpractices get --resource azurefunctions --action all`
+4. **For Azure Static Web Apps** - Use `get_bestpractices get --resource static-web-app --action all`
+5. **For configuring Azure MCP in coding agents** - Use `get_bestpractices get --resource coding-agent --action all`
+6. **When searching for modules** - Use `search_modules` to find AVM or community modules
+7. **When adding new resources** - Use `get_provider_details` for correct syntax
+8. **When reviewing infrastructure** - Use `azure_resources` to query existing state
 
 ## Workflow Commands
 
@@ -118,8 +161,22 @@ terraform apply tfplan
 
 ```
 infra/
-├── modules/           # Custom reusable modules
-├── environments/      # Environment-specific configurations
+├── modules/                    # Custom reusable modules
+│   └── my-module/
+│       ├── main.tf             # Resource definitions
+│       ├── variables.tf        # Input variables with validation
+│       ├── outputs.tf          # Module outputs
+│       ├── versions.tf         # Provider version constraints
+│       ├── README.md           # Module documentation
+│       └── examples/           # Working examples (REQUIRED)
+│           └── basic/
+│               ├── main.tf
+│               ├── variables.tf
+│               ├── outputs.tf
+│               ├── terraform.tfvars.example  # Example configuration
+│               ├── example.auto.tfvars       # Auto-loaded overrides
+│               └── README.md                 # Example usage guide
+├── environments/               # Environment-specific configurations
 │   ├── dev/
 │   │   ├── main.tf
 │   │   ├── variables.tf
@@ -127,7 +184,47 @@ infra/
 │   │   └── terraform.tfvars
 │   ├── staging/
 │   └── prod/
-└── shared/            # Shared resources (state, networking)
+└── shared/                     # Shared resources (state, networking)
+```
+
+### Module Structure Requirements
+
+When creating custom modules:
+
+1. **Module Root** - Contains the actual Terraform resources
+   - `main.tf` - Resource definitions
+   - `variables.tf` - Input variables with descriptions and validation
+   - `outputs.tf` - Output values
+   - `versions.tf` - Provider version constraints
+   - `README.md` - Usage documentation
+
+2. **Examples Directory** - MUST contain working examples
+   - Location: `examples/` within the module directory
+   - Each example is a complete, deployable configuration
+   - Include multiple examples for different use cases
+
+3. **Example Structure** - Each example must include:
+   - `main.tf` - Working configuration using the module
+   - `variables.tf` - Variables with sensible defaults
+   - `outputs.tf` - Outputs from the example
+   - `terraform.tfvars.example` - Example values (copy to terraform.tfvars)
+   - `example.auto.tfvars` - Auto-loaded environment-specific overrides
+   - `README.md` - Usage instructions and prerequisites
+
+4. **Variable Files**:
+   - `terraform.tfvars.example` - Comprehensive example showing all options
+   - `example.auto.tfvars` - Environment-specific overrides (e.g., for testing)
+   - Users copy `.example` file to `terraform.tfvars` and customize
+
+### Example Usage Pattern
+
+```bash
+cd infra/modules/my-module/examples/basic
+cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars with your values
+terraform init
+terraform plan
+terraform apply
 ```
 
 ## Error Handling
