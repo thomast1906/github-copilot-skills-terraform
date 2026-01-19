@@ -8,6 +8,7 @@ This directory contains GitHub Copilot Agent Skills following the [Agent Skills 
 |-------|-------------|-------|
 | [azure-verified-modules](azure-verified-modules/) | Learn from Azure Verified Modules patterns to build better custom Terraform modules | 116 |
 | [github-actions-terraform](github-actions-terraform/) | Debug and fix failing Terraform GitHub Actions workflows | 134 |
+| [terraform-best-practices](terraform-best-practices/) | General Terraform conventions and language best practices | 324 |
 | [terraform-security-scan](terraform-security-scan/) | Perform security scanning and compliance checking of Terraform configurations | 165 |
 
 ## Skill Structure

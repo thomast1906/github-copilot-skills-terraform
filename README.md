@@ -89,8 +89,7 @@ Agents are defined in [.github/agents/](.github/agents/) as `.agent.md` files:
 Skills follow the [Agent Skills specification](https://agentskills.io/specification) and are defined in [.github/skills/](.github/skills/):
 
 | Skill | Description | Status |
-|-------|-------------|--------|
-| `terraform-security-scan` | Runs security analysis with tfsec/checkov | 🚧 WIP |
+|-------|-------------|--------|| `terraform-best-practices` | General Terraform conventions and language best practices | 🚧 WIP || `terraform-security-scan` | Runs security analysis with tfsec/checkov | 🚧 WIP |
 | `azure-verified-modules` | Searches and implements Azure Verified Modules | ✅ Available |
 | `github-actions-terraform` | CI/CD workflow patterns for Terraform | 🚧 WIP |
 
