@@ -1,6 +1,6 @@
 ---
 name: github-actions-terraform
-description: Debug and fix failing Terraform GitHub Actions workflows. Use this skill when debugging CI/CD failures, fixing Terraform pipeline issues, troubleshooting authentication errors, or setting up new GitHub Actions workflows for infrastructure deployments.
+description: Debug and fix failing Terraform GitHub Actions workflows. Use this skill when debugging CI/CD failures, fixing Terraform pipeline issues, troubleshooting authentication errors, setting up new GitHub Actions workflows for infrastructure deployments, workflow failed, pipeline error, CI/CD broken, or deploy failure.
 metadata:
   author: github-copilot-skills-terraform
   version: "1.0.0"

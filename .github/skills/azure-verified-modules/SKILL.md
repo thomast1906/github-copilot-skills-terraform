@@ -1,6 +1,6 @@
 ---
 name: azure-verified-modules
-description: Research and learn from Azure Verified Modules (AVM) patterns to build better custom Terraform modules. Use this skill when creating Terraform modules, researching Azure security defaults, or understanding proper resource configuration patterns. NOT for consuming AVM modules directly.
+description: Research and learn from Azure Verified Modules (AVM) patterns to build better custom Terraform modules. Use this skill when creating Terraform modules, researching Azure security defaults, understanding proper resource configuration patterns, looking for Microsoft patterns, reference implementation examples, security defaults, or AVM examples. NOT for consuming AVM modules directly.
 metadata:
   author: github-copilot-skills-terraform
   version: "1.0.0"

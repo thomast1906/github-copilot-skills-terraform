@@ -1,6 +1,6 @@
 ---
 name: terraform-security-scan
-description: Perform security scanning and compliance checking of Terraform configurations for Azure. Use this skill when scanning for security issues, checking CIS/Azure Security Benchmark compliance, auditing Terraform code for vulnerabilities, or implementing security gates in CI/CD pipelines.
+description: Perform security scanning and compliance checking of Terraform configurations for Azure. Use this skill when scanning for security issues, checking CIS/Azure Security Benchmark compliance, auditing Terraform code for vulnerabilities, implementing security gates in CI/CD pipelines, vulnerability scan, security audit, compliance check, CIS benchmark, tfsec, or checkov.
 metadata:
   author: github-copilot-skills-terraform
   version: "1.0.0"
