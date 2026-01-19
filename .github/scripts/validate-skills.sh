@@ -94,13 +94,3 @@ if [ "$FAILED" -eq 1 ]; then
   exit 1
 fi
 
-echo "✅ All skills passed validation!"
-echo ""
-echo "Skills validated:"
-for skill_dir in .github/skills/*/; do
-  if [ -f "${skill_dir}SKILL.md" ]; then
-    SKILL_NAME=$(basename "$skill_dir")
-    LINE_COUNT=$(wc -l < "${skill_dir}SKILL.md")
-    printf "  • %-30s (%3d lines)\n" "$SKILL_NAME" "$LINE_COUNT"
-  fi
-done
