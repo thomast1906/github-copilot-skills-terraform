@@ -161,8 +161,22 @@ terraform apply tfplan
 
 ```
 infra/
-├── modules/           # Custom reusable modules
-├── environments/      # Environment-specific configurations
+├── modules/                    # Custom reusable modules
+│   └── my-module/
+│       ├── main.tf             # Resource definitions
+│       ├── variables.tf        # Input variables with validation
+│       ├── outputs.tf          # Module outputs
+│       ├── versions.tf         # Provider version constraints
+│       ├── README.md           # Module documentation
+│       └── examples/           # Working examples (REQUIRED)
+│           └── basic/
+│               ├── main.tf
+│               ├── variables.tf
+│               ├── outputs.tf
+│               ├── terraform.tfvars.example  # Example configuration
+│               ├── example.auto.tfvars       # Auto-loaded overrides
+│               └── README.md                 # Example usage guide
+├── environments/               # Environment-specific configurations
 │   ├── dev/
 │   │   ├── main.tf
 │   │   ├── variables.tf
@@ -170,7 +184,47 @@ infra/
 │   │   └── terraform.tfvars
 │   ├── staging/
 │   └── prod/
-└── shared/            # Shared resources (state, networking)
+└── shared/                     # Shared resources (state, networking)
+```
+
+### Module Structure Requirements
+
+When creating custom modules:
+
+1. **Module Root** - Contains the actual Terraform resources
+   - `main.tf` - Resource definitions
+   - `variables.tf` - Input variables with descriptions and validation
+   - `outputs.tf` - Output values
+   - `versions.tf` - Provider version constraints
+   - `README.md` - Usage documentation
+
+2. **Examples Directory** - MUST contain working examples
+   - Location: `examples/` within the module directory
+   - Each example is a complete, deployable configuration
+   - Include multiple examples for different use cases
+
+3. **Example Structure** - Each example must include:
+   - `main.tf` - Working configuration using the module
+   - `variables.tf` - Variables with sensible defaults
+   - `outputs.tf` - Outputs from the example
+   - `terraform.tfvars.example` - Example values (copy to terraform.tfvars)
+   - `example.auto.tfvars` - Auto-loaded environment-specific overrides
+   - `README.md` - Usage instructions and prerequisites
+
+4. **Variable Files**:
+   - `terraform.tfvars.example` - Comprehensive example showing all options
+   - `example.auto.tfvars` - Environment-specific overrides (e.g., for testing)
+   - Users copy `.example` file to `terraform.tfvars` and customize
+
+### Example Usage Pattern
+
+```bash
+cd infra/modules/my-module/examples/basic
+cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars with your values
+terraform init
+terraform plan
+terraform apply
 ```
 
 ## Error Handling

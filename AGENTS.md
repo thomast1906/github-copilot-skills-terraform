@@ -37,12 +37,26 @@ README.md                             # Repository documentation
 When using these agents/skills in an actual Terraform repository, the structure should be:
 ```
 infra/
-├── modules/           # Custom reusable modules
-├── environments/      # Environment-specific configurations
+├── modules/                    # Custom reusable modules
+│   └── my-module/
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       ├── versions.tf
+│       ├── README.md
+│       └── examples/           # Working examples INSIDE the module
+│           └── basic/
+│               ├── main.tf
+│               ├── variables.tf
+│               ├── outputs.tf
+│               ├── terraform.tfvars.example  # Example values
+│               ├── example.auto.tfvars       # Auto-loaded overrides
+│               └── README.md
+├── environments/               # Environment-specific configurations
 │   ├── dev/
 │   ├── staging/
 │   └── prod/
-└── shared/            # Shared resources (state, networking)
+└── shared/                     # Shared resources (state, networking)
 ```
 
 ### Naming Conventions
@@ -120,9 +134,16 @@ terraform {
 ```
 
 ### Module Usage
-- Prefer Azure Verified Modules (AVM) over custom modules
-- Always pin module versions
-- Document all variable overrides
+- Prefer Azure Verified Modules (AVM) as reference patterns, not as direct dependencies
+- When creating custom modules, follow the proper structure:
+  - Module code in root of module directory
+  - Examples in `examples/` subdirectory within the module
+  - Each example must include:
+    - Complete working Terraform configuration
+    - `terraform.tfvars.example` with sample values
+    - `README.md` with usage instructions
+- Always pin provider versions using pessimistic constraints (~>)
+- Document all variables with descriptions and validation rules
 
 ## Workflow Commands
 

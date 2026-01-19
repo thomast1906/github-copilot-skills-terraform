@@ -51,6 +51,20 @@ your-terraform-project/
 │   └── workflows/               # Your CI/CD workflows
 ├── infra/
 │   ├── modules/                 # Your custom Terraform modules
+│   │   └── my-module/
+│   │       ├── main.tf
+│   │       ├── variables.tf
+│   │       ├── outputs.tf
+│   │       ├── versions.tf
+│   │       ├── README.md
+│   │       └── examples/        # Working examples INSIDE the module
+│   │           └── basic/
+│   │               ├── main.tf
+│   │               ├── variables.tf
+│   │               ├── outputs.tf
+│   │               ├── terraform.tfvars.example
+│   │               ├── example.auto.tfvars
+│   │               └── README.md
 │   ├── environments/            # Your environment configs
 │   │   ├── dev/
 │   │   ├── staging/
