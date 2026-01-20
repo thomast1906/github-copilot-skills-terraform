@@ -269,7 +269,7 @@ This repository includes four specialized agents:
 - PCI DSS (if applicable)
 - HIPAA (if applicable)
 
-### Azure Architecture Reviewer ⭐ NEW
+### Azure Architecture Reviewer
 **Purpose:** Reviews Terraform Azure configurations against Microsoft Cloud Adoption Framework (CAF) and Azure Well-Architected Framework (WAF) before deployment.
 
 **Responsibilities:**
