@@ -1,4 +1,3 @@
-```skill
 ---
 name: azure-architecture-review
 description: Review Terraform Azure code against Microsoft Cloud Adoption Framework (CAF) and Azure Well-Architected Framework (WAF). Use this skill when reviewing Terraform configurations, validating code against Microsoft frameworks, checking infrastructure-as-code compliance, or performing architecture reviews of .tf files before deployment.
@@ -386,4 +385,3 @@ WAF Score = (Reliability + Security + Cost + OpEx + Performance) / 5
 - [Hub-Spoke Network Topology](https://learn.microsoft.com/azure/architecture/networking/architecture/hub-spoke)
 - [Azure Landing Zones](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/)
 - [Network Design Area](https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity)
-```
