@@ -33,92 +33,37 @@ This template provides ready-to-use components for Copilot-enhanced Terraform wo
 AGENTS.md                       # AI agent context documentation
 ```
 
-When integrated into your Terraform repository:
-
-```
-your-terraform-project/
-├── .github/
-│   ├── agents/                 # Copied from this template
-│   ├── skills/                 # Copied from this template
-│   ├── copilot-instructions.md # Copied from this template
-│   └── workflows/              # Your CI/CD pipelines
-├── infra/
-│   ├── modules/                # Custom Terraform modules
-│   ├── environments/           # Environment configurations (dev/staging/prod)
-│   └── shared/                 # Shared infrastructure
-└── .vscode/
-    └── mcp.json                # MCP server configuration
-```
-
 ## Agents
 
 Pre-configured agents for specialized Terraform operations ([.github/agents/](.github/agents/)):
 
-| Agent | Purpose |
-|-------|---------|
-| `terraform-module-expert` | Discovers and implements Azure Verified Modules with best practices |
-| `terraform-security` | Performs security scanning and compliance validation |
-| `azure-architecture-reviewer` | Validates configurations against CAF and Well-Architected Framework |
-| `terraform-coordinator` | Routes requests between specialized agents |
+| Agent | Purpose | Status |
+|-------|---------|--------|
+| `terraform-module-expert` | Discovers and implements Azure Verified Modules with best practices | ✅ Ready |
+| `terraform-security` | Performs security scanning and compliance validation | 🚧 [WIP] |
+| `azure-architecture-reviewer` | Validates configurations against CAF and Well-Architected Framework | ✅ Ready |
+| `terraform-coordinator` | Routes requests between specialized agents | 🚧 [WIP] |
 
 ## Skills
 
 Modular capabilities following [Agent Skills specification](https://agentskills.io/specification) ([.github/skills/](.github/skills/)):
 
-| Skill | Description |
-|-------|-------------|
-| `azure-verified-modules` | Searches and implements Azure Verified Modules |
-| `terraform-security-scan` | Executes security analysis with tfsec and checkov |
-| `azure-architecture-review` | Validates CAF and WAF compliance |
-| `github-actions-terraform` | CI/CD workflow patterns for Terraform deployments |
+| Skill | Description | Status |
+|-------|-------------|--------|
+| `azure-verified-modules` | Searches and implements Azure Verified Modules | ✅ Ready |
+| `terraform-security-scan` | Executes security analysis with tfsec and checkov | 🚧 [WIP] |
+| `azure-architecture-review` | Validates CAF and WAF compliance | ✅ Ready |
+| `github-actions-terraform` | CI/CD workflow patterns for Terraform deployments | 🚧 [WIP] |
 
-Each skill follows a progressive disclosure pattern with `SKILL.md` (metadata and instructions) and optional `references/` directory for detailed documentation.
+## Prerequisites
 
-## MCP Server Configuration
+To use the agents and skills in this template:
 
-This template includes MCP configuration for enhanced Terraform tooling ([.vscode/mcp.json](.vscode/mcp.json)).
+- [Azure MCP Server](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azure-mcp-server) extension
+- Docker (for HashiCorp Terraform MCP Server)
+- Azure CLI (`az login` required)
 
-### HashiCorp Terraform MCP Server
-
-Provides module and provider documentation access:
-
-```json
-{
-  "servers": {
-    "terraform": {
-      "command": "docker",
-      "args": [
-        "run", "-i", "--rm",
-        "-e", "TFE_TOKEN=${input:tfe_token}",
-        "-e", "TFE_ADDRESS=${input:tfe_address}",
-        "hashicorp/terraform-mcp-server:0.3.3"
-      ]
-    }
-  }
-}
-```
-
-**Available Tools:**
-- `search_modules` - Search Terraform Registry
-- `get_module_details` - Retrieve module documentation
-- `search_providers` - Find provider resources
-- `get_provider_details` - Get resource specifications
-
-### Azure MCP Server
-
-Install via VS Code Extension Marketplace:
-
-```bash
-code --install-extension ms-azuretools.vscode-azure-mcp-server
-az login  # Authenticate with Azure
-```
-
-**Available Tools:**
-- `azureterraformbestpractices` - Azure Terraform best practices (call before code generation)
-- `azure_resources` - Query Azure Resource Graph
-- `get_azure_bestpractices` - Deployment and security guidance
-
-> The Azure MCP Server extension auto-configures and uses Azure CLI credentials.
+MCP configuration is included in [.vscode/mcp.json](.vscode/mcp.json).
 
 ## Quick Start
 
@@ -137,12 +82,6 @@ cp .github/copilot-instructions.md your-terraform-repo/.github/
 cp .vscode/mcp.json your-terraform-repo/.vscode/
 cp AGENTS.md your-terraform-repo/
 ```
-
-**Configure MCP Servers:**
-
-1. Install [Azure MCP Server](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azure-mcp-server) extension
-2. Ensure Docker is running for Terraform MCP Server
-3. Run `az login` to authenticate Azure MCP
 
 ## Documentation
 
