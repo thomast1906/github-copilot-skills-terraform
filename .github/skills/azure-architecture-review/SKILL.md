@@ -165,7 +165,7 @@ query: "Azure Kubernetes Service Well-Architected security"
 **WAF Performance**:
 - [ ] SKU meets performance requirements
 - [ ] Scaling configured appropriately
-- [ ] Optimized for workload patterns
+- [ ] Optimised for workload patterns
 
 > **Note**: Detailed resource-specific validation checklists are in [references/REFERENCE.md](references/REFERENCE.md)
 
