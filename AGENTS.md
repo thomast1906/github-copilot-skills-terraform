@@ -225,7 +225,7 @@ Configure in `.vscode/mcp.json` for VS Code integration.
 
 ## Agent Architecture
 
-This repository includes three specialized agents:
+This repository includes four specialized agents:
 
 ### Terraform Coordinator
 **Purpose:** Central routing agent for handoffs between specialist agents.
@@ -233,6 +233,7 @@ This repository includes three specialized agents:
 **Responsibilities:**
 - Routes security review requests to `terraform-security`
 - Routes implementation requests to `terraform-module-expert`
+- Routes architecture reviews to `azure-architecture-reviewer`
 - Tracks handoff state and maintains a single canonical path for review/implementation cycles
 - Avoids performing specialist tasks; delegates to appropriate agents
 
@@ -248,7 +249,7 @@ This repository includes three specialized agents:
 - Create custom modules following Azure standards and AVM patterns
 - Maintain module versions and handle upgrades
 
-**Handoffs:** Routes security review requests to `terraform-coordinator`.
+**Handoffs:** Routes security review requests to `terraform-coordinator`, architecture reviews to `azure-architecture-reviewer`.
 
 ### Terraform Security
 **Purpose:** Analyzes Terraform configurations for security vulnerabilities and compliance.
@@ -267,3 +268,49 @@ This repository includes three specialized agents:
 - SOC 2 Type II requirements
 - PCI DSS (if applicable)
 - HIPAA (if applicable)
+
+### Azure Architecture Reviewer
+**Purpose:** Reviews Terraform Azure configurations against Microsoft Cloud Adoption Framework (CAF) and Azure Well-Architected Framework (WAF) before deployment.
+
+**Responsibilities:**
+- Review Terraform code for CAF compliance (network topology, naming, tagging, organization)
+- Analyze Terraform configurations for WAF alignment across all five pillars:
+  - Reliability (availability zones, redundancy, SLA)
+  - Security (NSGs, encryption, zero trust)
+  - Cost Optimization (right-sizing, shared resources)
+  - Operational Excellence (monitoring, IaC, tagging)
+  - Performance Efficiency (scalability, throughput)
+- Provide actionable recommendations with code examples
+- Generate comprehensive compliance reports with scores
+
+**MCP Tools Used:**
+1. `azureterraformbestpractices get` - ALWAYS called first
+2. `mcp_azure_mcp_documentation search` - Search CAF and WAF documentation
+   - Queries Cloud Adoption Framework patterns
+   - Queries Well-Architected Framework for each pillar
+   - Queries service-specific best practices
+
+**When to use:** Before deploying infrastructure, during architecture reviews, for compliance audits, or when optimizing existing Terraform code.
+
+**Example Workflow:**
+```bash
+# Step 1: Get Terraform best practices
+azureterraformbestpractices get
+
+# Step 2: Search CAF documentation
+mcp_azure_mcp_documentation search
+  query: "Cloud Adoption Framework hub spoke network topology"
+  
+# Step 3: Search WAF documentation (per pillar)
+mcp_azure_mcp_documentation search
+  query: "Well-Architected Framework reliability availability zones"
+  
+# Step 4: Generate report with compliance scores and recommendations
+```
+
+**Output:** Detailed compliance report with:
+- CAF compliance score (0-100%)
+- WAF pillar scores (0-100% each)
+- Prioritized recommendations (High/Medium/Low)
+- Code examples for fixes
+- Links to Microsoft documentation
