@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0"  # This will use latest 3.x version
+      version = "4.58.0"
     }
   }
 }
@@ -15,5 +15,5 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
     }
   }
-  skip_provider_registration = true
+  resource_provider_registrations = "none"
 }
