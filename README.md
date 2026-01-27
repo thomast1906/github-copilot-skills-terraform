@@ -21,10 +21,12 @@ This template provides ready-to-use components for Copilot-enhanced Terraform wo
 │   ├── terraform-module-expert.agent.md
 │   ├── terraform-security.agent.md
 │   ├── terraform-coordinator.agent.md
+│   ├── terraform-provider-upgrade.agent.md
 │   └── azure-architecture-reviewer.agent.md
 ├── skills/                     # Reusable agent skills
 │   ├── azure-verified-modules/
 │   ├── terraform-security-scan/
+│   ├── terraform-provider-upgrade/
 │   ├── azure-architecture-review/
 │   └── github-actions-terraform/
 └── copilot-instructions.md     # Global Copilot configuration
@@ -42,6 +44,7 @@ Pre-configured agents for specialized Terraform operations ([.github/agents/](.g
 | `terraform-module-expert` | Discovers and implements Azure Verified Modules with best practices | ✅ Ready |
 | `terraform-security` | Performs security scanning and compliance validation | 🚧 [WIP] |
 | `azure-architecture-reviewer` | Validates configurations against CAF and Well-Architected Framework | ✅ Ready |
+| `terraform-provider-upgrade` | Safely upgrades providers with automatic resource migration and breaking change detection | ✅ Ready |
 | `terraform-coordinator` | Routes requests between specialized agents | 🚧 [WIP] |
 
 ## Skills
@@ -52,6 +55,7 @@ Modular capabilities following [Agent Skills specification](https://agentskills.
 |-------|-------------|--------|
 | `azure-verified-modules` | Searches and implements Azure Verified Modules | ✅ Ready |
 | `terraform-security-scan` | Executes security analysis with tfsec and checkov | 🚧 [WIP] |
+| `terraform-provider-upgrade` | Safe provider upgrades with automatic resource migration using moved blocks | ✅ Ready |
 | `azure-architecture-review` | Validates CAF and WAF compliance | ✅ Ready |
 | `github-actions-terraform` | CI/CD workflow patterns for Terraform deployments | 🚧 [WIP] |
 

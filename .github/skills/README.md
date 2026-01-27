@@ -9,6 +9,7 @@ GitHub Copilot skills for Terraform Azure operations, following the [Agent Skill
 | [azure-architecture-review](azure-architecture-review/) | Review Terraform code against Microsoft Cloud Adoption Framework and Well-Architected Framework |
 | [azure-verified-modules](azure-verified-modules/) | Learn from Azure Verified Modules patterns to build custom Terraform modules |
 | [github-actions-terraform](github-actions-terraform/) | Debug and fix failing Terraform GitHub Actions workflows |
+| [terraform-provider-upgrade](terraform-provider-upgrade/) | Safe Terraform provider upgrades with automatic resource migration and breaking change detection |
 | [terraform-security-scan](terraform-security-scan/) | Security scanning and compliance checking of Terraform configurations |
 
 ## Skill Structure
