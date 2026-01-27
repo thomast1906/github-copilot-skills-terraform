@@ -18,12 +18,16 @@ This repository does NOT contain actual Terraform infrastructure code. It contai
 ```
 .github/
 ├── agents/                           # GitHub Copilot agent definitions
+│   ├── azure-architecture-reviewer.agent.md
 │   ├── terraform-coordinator.agent.md
 │   ├── terraform-module-expert.agent.md
+│   ├── terraform-provider-upgrade.agent.md
 │   └── terraform-security.agent.md
 ├── skills/                           # Reusable skills
+│   ├── azure-architecture-review/
 │   ├── azure-verified-modules/
 │   ├── github-actions-terraform/
+│   ├── terraform-provider-upgrade/
 │   └── terraform-security-scan/
 └── copilot-instructions.md           # Global Copilot instructions
 .vscode/
@@ -225,7 +229,7 @@ Configure in `.vscode/mcp.json` for VS Code integration.
 
 ## Agent Architecture
 
-This repository includes four specialized agents:
+This repository includes five specialized agents:
 
 ### Terraform Coordinator
 **Purpose:** Central routing agent for handoffs between specialist agents.
@@ -314,3 +318,70 @@ mcp_azure_mcp_documentation search
 - Prioritized recommendations (High/Medium/Low)
 - Code examples for fixes
 - Links to Microsoft documentation
+
+### Terraform Provider Upgrade
+**Purpose:** Safely upgrade Terraform providers with automatic resource migration, breaking change detection, and state management.
+
+**Responsibilities:**
+- Analyze current provider versions and identify latest stable versions
+- Research breaking changes using provider upgrade guides
+- Automatically migrate removed resources using `moved` blocks
+- Validate argument changes between old and new resources
+- Check for default value changes that may affect behavior
+- Apply code migrations with proper state management
+- Generate comprehensive upgrade documentation
+
+**Handoffs:** Routes security reviews to `terraform-security`, module updates to `terraform-module-expert`, complex workflows to `terraform-coordinator`.
+
+**MCP Tools Used:**
+1. `get_latest_provider_version(namespace, name)` - Get latest provider version from Terraform Registry
+2. `resolveProviderDocID(...)` - Find provider documentation IDs
+3. `getProviderDocs(providerDocID)` - Fetch upgrade guides, changelogs, resource documentation
+4. `azureterraformbestpractices get` - Get Azure Terraform best practices
+
+**When to use:** When upgrading Terraform provider versions (especially major versions), handling removed/deprecated resources, migrating between resource types, or performing provider maintenance.
+
+**Key Principles:**
+- **Action over documentation** - Apply code changes instead of listing manual steps
+- **Moved blocks preferred** - Use `moved` blocks for automatic state migration
+- **Validate arguments** - Always check official docs for argument changes
+- **Check defaults** - Compare default values between old and new resources
+- **Update references** - Find and update all dependent resources
+- **Pipeline validation** - User validates through CI/CD, not local commands
+
+**Example Workflow:**
+```bash
+# Step 1: Get latest version
+get_latest_provider_version(namespace="hashicorp", name="azurerm")
+
+# Step 2: Get upgrade guide
+resolveProviderDocID(...serviceSlug="4.0-upgrade-guide", providerDataType="guides"...)
+getProviderDocs(providerDocID="<id>")
+
+# Step 3: Search for removed resources in codebase
+grep -r "azurerm_sql_server" --include="*.tf"
+
+# Step 4: Get old resource docs
+resolveProviderDocID(...serviceSlug="sql_server", providerVersion="3.117.1"...)
+getProviderDocs(providerDocID="<id>")
+
+# Step 5: Get new resource docs
+resolveProviderDocID(...serviceSlug="mssql_server", providerVersion="latest"...)
+getProviderDocs(providerDocID="<id>")
+
+# Step 6: Apply migrations with moved blocks
+# Step 7: Update dependent resources
+# Step 8: Document changes in TERRAFORM_UPGRADE_BREAKING_CHANGES.md
+```
+
+**Output:** 
+- Updated Terraform files with new provider version
+- Migrated resource types with `moved` blocks
+- Updated argument references and attribute changes
+- `TERRAFORM_UPGRADE_BREAKING_CHANGES.md` documentation with:
+  - Version change summary
+  - Breaking changes handled (with argument mappings)
+  - Default value analysis
+  - Modified files list
+  - Pipeline-based next steps
+  - Official documentation links
