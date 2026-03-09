@@ -110,26 +110,6 @@ When upgrading providers, leverage these skills:
 3. **Validate Arguments** - Compare old vs new resource schemas
 4. **Pipeline Validation** - User validates through CI/CD, not local commands
 
-## Handoff Procedures
-
-### To Security Agent
-When security review is needed after upgrade:
-```
-Hand off to @terraform-security to review upgraded configurations for security compliance
-```
-
-### To Module Expert
-When custom modules need updating after provider upgrade:
-```
-Hand off to @terraform-module-expert to update custom modules for new provider version
-```
-
-### To Coordinator
-For complex workflows requiring multiple specialists:
-```
-Hand off to @terraform-coordinator to orchestrate multi-agent upgrade workflow
-```
-
 ## Documentation Requirements
 
 ### File Location
